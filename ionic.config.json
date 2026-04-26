@@ -1,0 +1,7 @@
+{
+  "name": "Todos App",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular-standalone"
+}
