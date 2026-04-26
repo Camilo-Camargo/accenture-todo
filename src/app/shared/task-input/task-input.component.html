@@ -1,0 +1,17 @@
+<div class="task-input">
+  <input
+    class="task-input__field"
+    type="text"
+    [placeholder]="'tasks.placeholder' | translate"
+    [ngModel]="title()"
+    (ngModelChange)="title.set($event)"
+    (keyup.enter)="submit()"
+  />
+  <ion-icon
+    class="task-input__add"
+    name="add"
+    role="button"
+    aria-label="Add task"
+    (click)="submit()"
+  ></ion-icon>
+</div>

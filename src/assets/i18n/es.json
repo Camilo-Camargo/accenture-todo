@@ -1,0 +1,26 @@
+{
+  "brand": "Accenture To-Do",
+  "tasks": {
+    "placeholder": "Agregar una nueva tarea...",
+    "empty": "Sin tareas",
+    "delete": "Eliminar tarea",
+    "meta": {
+      "created": "Creada",
+      "completed": "Completada"
+    }
+  },
+  "tabs": {
+    "tasks": "Tareas",
+    "settings": "Ajustes"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "version": "Versión",
+    "storageDriver": "Driver de almacenamiento",
+    "language": "Idioma",
+    "languages": {
+      "es": "Español",
+      "en": "Inglés"
+    }
+  }
+}

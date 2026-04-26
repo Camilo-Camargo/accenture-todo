@@ -36,7 +36,12 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
-/* Fix ios height + viewport in index html*/
-html[mode="ios"] {
+/* Lock html height to viewport — fixes safe-area / address bar gaps on iOS and Android */
+html {
     height: 100vh;
+}
+
+:root {
+    --ion-font-family: 'Lexend', sans-serif;
+    font-family: 'Lexend', sans-serif;
 }

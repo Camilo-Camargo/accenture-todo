@@ -1,0 +1,41 @@
+<ion-header [translucent]="true" class="settings__header">
+  <ion-toolbar>
+    <ion-title class="settings__brand">{{ 'settings.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="settings__content">
+  <div class="settings__container">
+    <div class="settings__row">
+      <span class="settings__label">{{ 'settings.language' | translate }}</span>
+      <div class="settings__lang-group">
+        @for (lang of languages; track lang) {
+          <button
+            class="settings__lang"
+            [class.settings__lang--active]="currentLang() === lang"
+            (click)="use(lang)"
+          >
+            {{ ('settings.languages.' + lang) | translate }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="settings__row">
+      <span class="settings__label">{{ 'settings.storageDriver' | translate }}</span>
+      <span class="settings__value">{{ driver() }}</span>
+    </div>
+
+    <div class="settings__row">
+      <span class="settings__label">{{ 'settings.version' | translate }}</span>
+      <span class="settings__value">{{ version }}</span>
+    </div>
+
+    @if (storageError(); as err) {
+      <div class="settings__row settings__row--error">
+        <span class="settings__label">ERROR</span>
+        <span class="settings__value">{{ err }}</span>
+      </div>
+    }
+  </div>
+</ion-content>

@@ -1,0 +1,22 @@
+<ion-header [translucent]="true" class="tasks__header">
+  <ion-toolbar>
+    <ion-title class="tasks__brand">{{ 'brand' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="tasks__content">
+  <div class="tasks__container">
+    <section class="tasks__input-section">
+      <app-task-input (add)="onAdd($event)"></app-task-input>
+      <div class="tasks__date">{{ today() }}</div>
+    </section>
+
+    <div class="tasks__list">
+      @for (task of tasks(); track trackById($index, task)) {
+        <app-task-item [task]="task" (toggle)="onToggle($event)" (remove)="onRemove($event)"></app-task-item>
+      } @empty {
+        <p class="tasks__empty">{{ 'tasks.empty' | translate }}</p>
+      }
+    </div>
+  </div>
+</ion-content>
