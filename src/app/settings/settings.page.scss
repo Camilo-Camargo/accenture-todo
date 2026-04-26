@@ -1,0 +1,92 @@
+:host {
+  --app-bg: #ffffff;
+  --app-fg: #000000;
+  --app-fg-muted: #848484;
+  --app-border: #e2e2e2;
+}
+
+.settings {
+  &__header {
+    --background: var(--app-bg);
+
+    ion-toolbar {
+      --background: var(--app-bg);
+      --border-color: transparent;
+      --color: var(--app-fg);
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+    }
+  }
+
+  &__brand {
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  &__content {
+    --background: var(--app-bg);
+    --color: var(--app-fg);
+  }
+
+  &__container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 24px 96px;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--app-border);
+    padding: 16px 0;
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--app-fg);
+  }
+
+  &__value {
+    font-size: 14px;
+    color: var(--app-fg-muted);
+  }
+
+  &__row--error {
+    border-top-color: #c00;
+    .settings__label,
+    .settings__value {
+      color: #c00;
+    }
+    .settings__value {
+      max-width: 60%;
+      text-align: right;
+      word-break: break-word;
+    }
+  }
+
+  &__lang-group {
+    display: flex;
+    gap: 12px;
+  }
+
+  &__lang {
+    background: transparent;
+    border: 1px solid var(--app-border);
+    color: var(--app-fg-muted);
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &--active {
+      background: var(--app-fg);
+      color: var(--app-bg);
+      border-color: var(--app-fg);
+    }
+  }
+}

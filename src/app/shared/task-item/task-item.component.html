@@ -1,0 +1,29 @@
+<div
+  class="task-item"
+  [class.task-item--done]="task().done"
+  (click)="onToggle()"
+  role="button"
+>
+  <div class="task-item__check">
+    @if (task().done) {
+      <ion-icon name="checkmark"></ion-icon>
+    }
+  </div>
+  <div class="task-item__body">
+    <p class="task-item__title">{{ task().title }}</p>
+    <div class="task-item__meta">
+      <span>{{ 'tasks.meta.created' | translate }}: {{ task().createdAt | date: 'shortTime':undefined:lang() }}</span>
+      @if (task().completedAt; as completedAt) {
+        <span>{{ 'tasks.meta.completed' | translate }}: {{ completedAt | date: 'shortTime':undefined:lang() }}</span>
+      }
+    </div>
+  </div>
+  <button
+    class="task-item__delete"
+    type="button"
+    [attr.aria-label]="'tasks.delete' | translate"
+    (click)="onRemove($event)"
+  >
+    <ion-icon name="trash-outline"></ion-icon>
+  </button>
+</div>

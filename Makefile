@@ -46,7 +46,8 @@ live: restore-config
 	  wait
 
 apk: restore-config
-	$(NVM) && cd platforms/android && ./gradlew assembleRelease
+	$(NVM) && ionic cordova prepare android --no-confirm
+	$(NVM) && cd platforms/android && ./gradlew assembleRelease assembleDebug
 
 ipa: restore-config
 	cd platforms/ios && xcodebuild -workspace App.xcworkspace -scheme App \
