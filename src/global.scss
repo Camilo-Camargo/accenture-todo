@@ -35,3 +35,8 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* Fix ios height + viewport in index html*/
+html[mode="ios"] {
+    height: 100vh;
+}

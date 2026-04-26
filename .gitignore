@@ -25,9 +25,16 @@ log.txt
 
 # Compiled output
 /dist
+/dist-artifacts
 /tmp
 /out-tsc
 /bazel-out
+
+# Build artifacts
+*.apk
+*.aab
+*.ipa
+*.xcarchive
 
 # Node
 /node_modules
