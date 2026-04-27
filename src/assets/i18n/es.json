@@ -37,6 +37,13 @@
     "languages": {
       "es": "Español",
       "en": "Inglés"
+    },
+    "devTools": {
+      "title": "Herramientas de desarrollo",
+      "taskCount": "Tareas guardadas",
+      "seed": "Generar tareas",
+      "seeding": "Generando…",
+      "clear": "Borrar todas"
     }
   }
 }

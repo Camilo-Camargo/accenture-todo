@@ -37,5 +37,40 @@
         <span class="settings__value">{{ err }}</span>
       </div>
     }
+
+    @if (enableDevTools()) {
+      <div class="settings__section">
+        <h2 class="settings__section-title">{{ 'settings.devTools.title' | translate }}</h2>
+
+        <div class="settings__row">
+          <span class="settings__label">{{ 'settings.devTools.taskCount' | translate }}</span>
+          <span class="settings__value">{{ taskCount() }}</span>
+        </div>
+
+        <div class="settings__seed">
+          <input
+            class="settings__seed-input"
+            type="number"
+            min="1"
+            max="50000"
+            [ngModel]="seedAmount()"
+            (ngModelChange)="seedAmount.set($event)"
+          />
+          <button
+            class="settings__btn settings__btn--primary"
+            [disabled]="seeding()"
+            (click)="seed()"
+          >
+            {{ (seeding() ? 'settings.devTools.seeding' : 'settings.devTools.seed') | translate }}
+          </button>
+          <button
+            class="settings__btn"
+            (click)="clearAll()"
+          >
+            {{ 'settings.devTools.clear' | translate }}
+          </button>
+        </div>
+      </div>
+    }
   </div>
 </ion-content>

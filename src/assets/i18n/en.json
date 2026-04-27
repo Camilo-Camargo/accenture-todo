@@ -37,6 +37,13 @@
     "languages": {
       "es": "Spanish",
       "en": "English"
+    },
+    "devTools": {
+      "title": "Dev tools",
+      "taskCount": "Stored tasks",
+      "seed": "Seed tasks",
+      "seeding": "Seeding…",
+      "clear": "Clear all"
     }
   }
 }
