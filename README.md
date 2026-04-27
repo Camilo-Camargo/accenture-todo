@@ -126,15 +126,23 @@ LocalStorage as last resort.
 
 ## Reflections
 
-- **Main challenge:** the bootstrap. Modern Ionic / Angular is designed first for
-  Capacitor; Cordova still works by backward compatibility but lags behind — the WebView
-  isn't a secure context (so `crypto.randomUUID` is missing in livereload), and native
-  plugins (SQLite, status bar, keyboard) only respond after `deviceready`, well after
-  Angular has booted. Most of the boot complexity was filling those gaps.
-- **Optimizations applied:** cursor pagination, on-demand data refresh (pull-to-refresh +
-  Remote Config throttle bypass), and a single reusable picker component instead of two
-  duplicated dropdowns.
-- **Quality:** core/shared/feature folders, repository pattern (swapping storage is one
-  file), `IdService` and `StorageService` keep platform APIs out of the rest of the code,
-  unit tests on `TaskService` and `CategoryService`, signals + standalone components
-  throughout.
+### What were the main challenges you faced implementing the new features?
+
+The bootstrap. Modern Ionic / Angular is designed first for Capacitor; Cordova still works
+by backward compatibility but lags behind — the WebView isn't a secure context (so
+`crypto.randomUUID` is missing in livereload), and native plugins (SQLite, status bar,
+keyboard) only respond after `deviceready`, well after Angular has booted. Most of the
+boot complexity was filling those gaps.
+
+### What performance optimization techniques did you apply, and why?
+
+Cursor pagination on the tasks list (50/page, preloads at 33%) so the DOM stays small no
+matter how many tasks you have; on-demand data refresh (pull-to-refresh + Remote Config
+throttle bypass) so a flag toggle propagates in seconds without a redeploy; and a single
+reusable picker component instead of two duplicated dropdowns.
+
+### How did you ensure code quality and maintainability?
+
+`core/shared/feature` folders, repository pattern (swapping storage is one file),
+`IdService` and `StorageService` keep platform APIs out of the rest of the code, unit
+tests on `TaskService` and `CategoryService`, signals + standalone components throughout.

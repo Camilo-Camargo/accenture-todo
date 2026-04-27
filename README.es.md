@@ -126,15 +126,24 @@ LocalStorage como último recurso.
 
 ## Reflexiones
 
-- **Mayor desafío:** el bootstrap. Ionic / Angular modernos están pensados primero para
-  Capacitor; Cordova sigue funcionando por compatibilidad pero queda atrás — el WebView no
-  es secure context (`crypto.randomUUID` no existe en livereload) y los plugins nativos
-  (SQLite, status bar, keyboard) sólo responden después de `deviceready`, bastante después
-  de que Angular booteó. La mayor parte del costo del boot fue rellenar esos huecos.
-- **Optimizaciones aplicadas:** paginación por cursor, refresh de datos on-demand
-  (pull-to-refresh + bypass del throttle de Remote Config), y un único componente picker
-  reusable en lugar de dos dropdowns duplicados.
-- **Calidad:** carpetas core/shared/feature, repository pattern (cambiar storage es un solo
-  archivo), `IdService` y `StorageService` mantienen las APIs de plataforma fuera del resto
-  del código, tests unitarios sobre `TaskService` y `CategoryService`, signals + standalone
-  components en toda la app.
+### ¿Cuáles fueron los principales desafíos que enfrentaste al implementar las nuevas funcionalidades?
+
+El bootstrap. Ionic / Angular modernos están pensados primero para Capacitor; Cordova sigue
+funcionando por compatibilidad pero queda atrás — el WebView no es secure context
+(`crypto.randomUUID` no existe en livereload) y los plugins nativos (SQLite, status bar,
+keyboard) sólo responden después de `deviceready`, bastante después de que Angular booteó.
+La mayor parte del costo del boot fue rellenar esos huecos.
+
+### ¿Qué técnicas de optimización de rendimiento aplicaste y por qué?
+
+Paginación por cursor en la lista de tareas (50/página, precarga al 33%) para que el DOM se
+mantenga chico sin importar cuántas tareas haya; refresh de datos on-demand (pull-to-refresh
++ bypass del throttle de Remote Config) para que un toggle de flag se propague en segundos
+sin redeploy; y un único componente picker reusable en lugar de dos dropdowns duplicados.
+
+### ¿Cómo aseguraste la calidad y mantenibilidad del código?
+
+Carpetas `core/shared/feature`, repository pattern (cambiar storage es un solo archivo),
+`IdService` y `StorageService` mantienen las APIs de plataforma fuera del resto del código,
+tests unitarios sobre `TaskService` y `CategoryService`, signals + standalone components
+en toda la app.
