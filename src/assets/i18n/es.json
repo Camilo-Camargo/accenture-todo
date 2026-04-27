@@ -4,13 +4,29 @@
     "placeholder": "Agregar una nueva tarea...",
     "empty": "Sin tareas",
     "delete": "Eliminar tarea",
+    "filter": {
+      "all": "Todas",
+      "uncategorized": "Sin categoría"
+    },
     "meta": {
       "created": "Creada",
       "completed": "Completada"
     }
   },
+  "categories": {
+    "title": "Categorías",
+    "add": "Agregar categoría",
+    "edit": "Editar categoría",
+    "delete": "Eliminar categoría",
+    "placeholder": "Nombre de la categoría",
+    "empty": "Sin categorías",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "none": "Sin categoría"
+  },
   "tabs": {
     "tasks": "Tareas",
+    "categories": "Categorías",
     "settings": "Ajustes"
   },
   "settings": {
