@@ -17,6 +17,9 @@
         <span>{{ 'tasks.meta.completed' | translate }}: {{ completedAt | date: 'shortTime':undefined:lang() }}</span>
       }
     </div>
+    @if (showCategory() && category(); as cat) {
+      <span class="task-item__category" [style.background]="cat.color">{{ cat.name }}</span>
+    }
   </div>
   <button
     class="task-item__delete"

@@ -5,6 +5,13 @@
       <ion-label>{{ 'tabs.tasks' | translate }}</ion-label>
     </ion-tab-button>
 
+    @if (enableCategories()) {
+      <ion-tab-button tab="categories" href="/tabs/categories">
+        <ion-icon aria-hidden="true" name="pricetags-outline"></ion-icon>
+        <ion-label>{{ 'tabs.categories' | translate }}</ion-label>
+      </ion-tab-button>
+    }
+
     <ion-tab-button tab="settings" href="/tabs/settings">
       <ion-icon aria-hidden="true" name="settings-outline"></ion-icon>
       <ion-label>{{ 'tabs.settings' | translate }}</ion-label>
