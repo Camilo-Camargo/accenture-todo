@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import {
   IonContent,
   IonHeader,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
   IonRefresher,
   IonRefresherContent,
   IonTitle,
@@ -22,6 +24,7 @@ import { CategoryPickerComponent, PickerOption } from '../shared/category-picker
 
 const FILTER_ALL = '__all__';
 const FILTER_NONE = '__none__';
+const PAGE_SIZE = 50;
 
 @Component({
   selector: 'app-tasks',
@@ -31,6 +34,8 @@ const FILTER_NONE = '__none__';
     FormsModule,
     IonContent,
     IonHeader,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
     IonRefresher,
     IonRefresherContent,
     IonTitle,
@@ -65,7 +70,7 @@ export class TasksPage {
     ];
   });
 
-  readonly tasks = computed(() => {
+  readonly filteredTasks = computed(() => {
     const all = [...this.taskService.tasks()].sort((a, b) => Number(a.done) - Number(b.done));
     if (!this.enableCategories()) return all;
     const filter = this.filterValue();
@@ -73,6 +78,27 @@ export class TasksPage {
     if (filter === FILTER_NONE) return all.filter((t) => !t.categoryId);
     return all.filter((t) => t.categoryId === filter);
   });
+
+  readonly cursor = signal(PAGE_SIZE);
+  readonly visibleTasks = computed(() => this.filteredTasks().slice(0, this.cursor()));
+  readonly hasMore = computed(() => this.cursor() < this.filteredTasks().length);
+
+  constructor() {
+    // Reset to the first page whenever the filter changes.
+    effect(() => {
+      this.filterValue();
+      this.cursor.set(PAGE_SIZE);
+    });
+
+    // Cursor logs are part of the dev tools — same audience as the seed buttons.
+    effect(() => {
+      if (!this.flags.enableDevTools()) return;
+      const total = this.filteredTasks().length;
+      const showing = Math.min(this.cursor(), total);
+      const page = Math.ceil(this.cursor() / PAGE_SIZE);
+      console.info(`[Cursor] page ${page} — showing ${showing}/${total} tasks (size ${PAGE_SIZE})`);
+    });
+  }
 
   trackById = (_: number, t: Task) => t.id;
 
@@ -86,6 +112,12 @@ export class TasksPage {
 
   onRemove(id: string): void {
     void this.taskService.remove(id);
+  }
+
+  async onLoadMore(event: CustomEvent): Promise<void> {
+    if (this.flags.enableDevTools()) console.info('[Cursor] load more →');
+    this.cursor.update((c) => c + PAGE_SIZE);
+    (event.target as HTMLIonInfiniteScrollElement).complete();
   }
 
   async onRefresh(event: CustomEvent): Promise<void> {

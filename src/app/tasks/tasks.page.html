@@ -30,7 +30,7 @@
     }
 
     <div class="tasks__list">
-      @for (task of tasks(); track trackById($index, task)) {
+      @for (task of visibleTasks(); track trackById($index, task)) {
         <app-task-item
           [task]="task"
           [showCategory]="enableCategories()"
@@ -42,4 +42,12 @@
       }
     </div>
   </div>
+
+  <ion-infinite-scroll
+    threshold="33%"
+    [disabled]="!hasMore()"
+    (ionInfinite)="onLoadMore($event)"
+  >
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
