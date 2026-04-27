@@ -1,0 +1,54 @@
+<button type="button" class="picker-trigger" (click)="open()">
+  @if (current()?.color; as color) {
+    <span class="picker-trigger__dot" [style.background]="color"></span>
+  }
+  <span class="picker-trigger__label">{{ current()?.label }}</span>
+  <ion-icon name="chevron-down" class="picker-trigger__caret"></ion-icon>
+</button>
+
+<ion-modal [isOpen]="isOpen()" (didDismiss)="dismiss()" [breakpoints]="[0, 0.6, 1]" [initialBreakpoint]="0.6" [handle]="true">
+  <ng-template>
+    <ion-header class="picker__header">
+      <ion-toolbar>
+        <ion-title class="picker__title">{{ 'categories.title' | translate }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="picker__content">
+      <div class="picker__container">
+        <div class="picker__search">
+          <ion-icon name="search-outline"></ion-icon>
+          <input
+            class="picker__input"
+            type="text"
+            [placeholder]="'categories.placeholder' | translate"
+            [ngModel]="query()"
+            (ngModelChange)="query.set($event)"
+            autofocus
+          />
+        </div>
+        <div class="picker__list">
+          @for (opt of filtered(); track opt.key) {
+            <button
+              type="button"
+              class="picker-option"
+              [class.picker-option--active]="opt.key === selectedKey()"
+              (click)="pick(opt.key)"
+            >
+              @if (opt.color) {
+                <span class="picker-option__dot" [style.background]="opt.color"></span>
+              } @else {
+                <span class="picker-option__dot picker-option__dot--empty"></span>
+              }
+              <span class="picker-option__label">{{ opt.label }}</span>
+              @if (opt.key === selectedKey()) {
+                <ion-icon name="checkmark" class="picker-option__check"></ion-icon>
+              }
+            </button>
+          } @empty {
+            <p class="picker__empty">{{ 'categories.empty' | translate }}</p>
+          }
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

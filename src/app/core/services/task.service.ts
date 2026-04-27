@@ -13,7 +13,7 @@ export class TaskService {
 
   private hydratedPromise?: Promise<void>;
 
-  // Runs once. Mutations await this so they don't race with the initial load.
+  // Idempotent. Mutations await this so they can't race the initial load.
   hydrate(): Promise<void> {
     return (this.hydratedPromise ??= this.doHydrate());
   }
@@ -22,7 +22,7 @@ export class TaskService {
     this._tasks.set(await this.repo.load());
   }
 
-  async add(title: string): Promise<void> {
+  async add(title: string, categoryId?: string): Promise<void> {
     const trimmed = title.trim();
     if (!trimmed) return;
     await this.hydrate();
@@ -31,8 +31,17 @@ export class TaskService {
       title: trimmed,
       done: false,
       createdAt: Date.now(),
+      categoryId,
     };
     this._tasks.update((list) => [task, ...list]);
+    await this.repo.save(this._tasks());
+  }
+
+  async setCategory(id: string, categoryId: string | undefined): Promise<void> {
+    await this.hydrate();
+    this._tasks.update((list) =>
+      list.map((t) => (t.id === id ? { ...t, categoryId } : t)),
+    );
     await this.repo.save(this._tasks());
   }
 
