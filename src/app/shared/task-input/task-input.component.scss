@@ -1,9 +1,15 @@
 .task-input {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  border-bottom: 1px solid var(--app-fg);
-  padding-bottom: 4px;
+  flex-direction: column;
+  gap: 14px;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--app-fg);
+    padding-bottom: 6px;
+  }
 
   &__field {
     flex: 1;
@@ -26,7 +32,7 @@
     transition: opacity 0.15s ease;
 
     &:hover {
-      opacity: 0.7;
+      opacity: 0.6;
     }
   }
 }

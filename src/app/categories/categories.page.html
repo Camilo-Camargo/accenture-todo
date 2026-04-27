@@ -1,0 +1,65 @@
+<ion-header [translucent]="true" class="categories__header">
+  <ion-toolbar>
+    <ion-title class="categories__brand">{{ 'categories.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="categories__content">
+  <div class="categories__container">
+
+    @if (!isEditing()) {
+      <button class="categories__add" (click)="startCreate()">
+        <ion-icon name="add"></ion-icon>
+        {{ 'categories.add' | translate }}
+      </button>
+    } @else {
+      <form class="categories__form" (ngSubmit)="submit()">
+        <input
+          class="categories__input"
+          type="text"
+          [placeholder]="'categories.placeholder' | translate"
+          [ngModel]="draftName()"
+          (ngModelChange)="draftName.set($event)"
+          name="name"
+          autofocus
+        />
+        <div class="categories__colors">
+          @for (c of colors; track c) {
+            <button
+              type="button"
+              class="categories__color"
+              [class.categories__color--active]="draftColor() === c"
+              [style.background]="c"
+              (click)="draftColor.set(c)"
+            ></button>
+          }
+        </div>
+        <div class="categories__form-actions">
+          <button type="button" class="categories__cancel" (click)="cancel()">
+            {{ 'categories.cancel' | translate }}
+          </button>
+          <button type="submit" class="categories__save" [disabled]="!draftName().trim()">
+            {{ 'categories.save' | translate }}
+          </button>
+        </div>
+      </form>
+    }
+
+    <div class="categories__list">
+      @for (cat of categories(); track cat.id) {
+        <div class="category" [class.category--editing]="editingId() === cat.id">
+          <span class="category__dot" [style.background]="cat.color"></span>
+          <span class="category__name">{{ cat.name }}</span>
+          <button class="category__icon" (click)="startEdit(cat)" [attr.aria-label]="'categories.edit' | translate">
+            <ion-icon name="create-outline"></ion-icon>
+          </button>
+          <button class="category__icon" (click)="remove(cat.id)" [attr.aria-label]="'categories.delete' | translate">
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
+        </div>
+      } @empty {
+        <p class="categories__empty">{{ 'categories.empty' | translate }}</p>
+      }
+    </div>
+  </div>
+</ion-content>

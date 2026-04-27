@@ -11,6 +11,10 @@ export const routes: Routes = [
         loadComponent: () => import('../tasks/tasks.page').then((m) => m.TasksPage),
       },
       {
+        path: 'categories',
+        loadComponent: () => import('../categories/categories.page').then((m) => m.CategoriesPage),
+      },
+      {
         path: 'settings',
         loadComponent: () => import('../settings/settings.page').then((m) => m.SettingsPage),
       },

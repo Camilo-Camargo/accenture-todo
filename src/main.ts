@@ -15,6 +15,8 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { LanguageService } from './app/core/services/language.service';
 import { TaskService } from './app/core/services/task.service';
+import { CategoryService } from './app/core/services/category.service';
+import { FeatureFlagsService } from './app/core/services/feature-flags.service';
 
 registerLocaleData(localeEs, 'es');
 registerLocaleData(localeEn, 'en');
@@ -36,9 +38,11 @@ bootstrapApplication(AppComponent, {
         }),
     },
     provideAppInitializer(() => {
-      // Fire-and-forget so the app renders fast; services await ready internally.
+      // We don't await — services check their own ready state on first call.
       void inject(LanguageService).init();
       void inject(TaskService).hydrate();
+      void inject(CategoryService).hydrate();
+      void inject(FeatureFlagsService).init();
     }),
   ],
 });

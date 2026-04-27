@@ -4,13 +4,29 @@
     "placeholder": "Add a new task...",
     "empty": "No tasks",
     "delete": "Delete task",
+    "filter": {
+      "all": "All",
+      "uncategorized": "Uncategorized"
+    },
     "meta": {
       "created": "Created",
       "completed": "Completed"
     }
   },
+  "categories": {
+    "title": "Categories",
+    "add": "Add category",
+    "edit": "Edit category",
+    "delete": "Delete category",
+    "placeholder": "Category name",
+    "empty": "No categories",
+    "save": "Save",
+    "cancel": "Cancel",
+    "none": "Uncategorized"
+  },
   "tabs": {
     "tasks": "Tasks",
+    "categories": "Categories",
     "settings": "Settings"
   },
   "settings": {
@@ -21,6 +37,13 @@
     "languages": {
       "es": "Spanish",
       "en": "English"
+    },
+    "devTools": {
+      "title": "Dev tools",
+      "taskCount": "Stored tasks",
+      "seed": "Seed tasks",
+      "seeding": "Seeding…",
+      "clear": "Clear all"
     }
   }
 }
